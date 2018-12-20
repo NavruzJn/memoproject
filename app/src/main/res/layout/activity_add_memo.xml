@@ -53,7 +53,7 @@
             android:textSize="@dimen/sp_14"
             android:layout_weight="1"/>
 
-<TextView
+<android.support.v7.widget.AppCompatTextView
 
     android:id="@+id/tv_adt_date"
     android:layout_width="match_parent"
@@ -65,12 +65,12 @@
     android:gravity="center_vertical"
     android:padding="@dimen/dp_10"
     android:layout_weight="1"
-    />
+    android:onClick="pickdate"/>
 
 
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_"
+            android:id="@+id/iv_show"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="@dimen/dp_10"
