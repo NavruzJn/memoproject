@@ -1,4 +1,118 @@
 <resources>
-    <string name="app_name">memo My Application</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Memo</string>
+    <string name="no_network_connection">Please Check Network connection!</string>
+    <string name="title_home">Uncompleted</string>
+    <string name="title_knowledgesystem">Complete</string>
+    <string name="navigation">navigation</string>
+    <string name="title_my">My</string>
+    <string name="hot_title">Hot</string>
+    <string name="search_title">Search</string>
+    <string name="empty_network_error">Network error, Click Retry</string>
+    <string name="empty_no_data">There is no data, Click Retry</string>
+    <string name="setting_auto_update">Setting auto update</string>
+    <string name="auto_update">Automatic update </string>
+    <string name="check_update">Check update</string>
+    <string name="about">About Android </string>
+    <string name="test_page">Test Page</string>
+    <string name="system_settings">System Setting </string>
+    <!-- article -->
+    <string name="browser_title">Open with browser</string>
+    <string name="hot_key">Search</string>
+    <string name="common_use">Common use</string>
+
+    <!-- navigation -->
+    <string name="my_bookmark">My bookmark</string>
+    <string name="my_like">My like</string>
+    <string name="my_about">About us</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Registered  </string>
+
+    <string name="like_title">like</string>
+    <string name="collection_time">Time：%1$s</string>
+    <string name="collection_success">Collection success</string>
+    <string name="collection_failed">Collection failed：%1$s</string>
+    <string name="collection_cancel_success">Collection cancel success</string>
+    <string name="collection_cancel_failed">Collection cancel failed：%1$s</string>
+    <string name="username">Username</string>
+    <string name="password">Password </string>
+    <string name="the_username_or_password_can_not_be_empty">Username and password shouldn\'t be empty</string>
+    <string name="login_success">Login Success</string>
+    <string name="auto_login_success">auto login success</string>
+    <string name="click_avatar_login">click to login</string>
+    <string name="logout">Logout</string>
+    <string name="my_collection">My collection </string>
+    <string name="bookmark">Bookmark</string>
+    <string name="setting">Setting</string>
+    <string name="not_login">没有登陆</string>
+    <string name="share_title">Share</string>
+    <string name="share_type_title">Share type</string>
+    <string name="share_article_url">%1$sShare【%2$s】：%3$s</string>
+    <string name="share_type_url">%1$sShare【%2$s】type ：http://www.wanandroid.com/article/list/0?cid=%3$d</string>
+    <string name="exit_system"></string>
+    <string name="knowledgesystem">Knowledge</string>
+    <string name="gank_io">干货集中营</string>
+    <string name="refresh_success">Refresh success</string>
+    <string name="refresh_error">Refresh Failed </string>
+    <string name="load_more_success">Load Success</string>
+    <string name="load_more_error">Load failed </string>
+    <string name="title_gank">干货</string>
+
+    <string name="startlocation">Start Location</string>
+    <string name="stoplocation">Stop Location</string>
+    <string name="title">Entry Title:</string>
+    <string name="content">Content:</string>
+    <string name="save">Add</string>
+    <string name="no_complete">Completed</string>
+
+    <string name="loading">正在加载中……</string>
+    <string name="service_error">服务器开小差，请稍候重试</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_account">Account</string>
+    <string name="prompt_password">Password</string>
+    <string name="sign_in">Login</string>
+    <string name="register_message">Registered </string>
+    <string name="input_account">Pleas Enter Account</string>
+    <string name="input_password">Pleas Enter Password</string>
+    <string name="to_do_list">TODO</string>
+    <string name="complete_list">Finished </string>
+    <string name="splash_message">High Efficient &#160;Slow live</string>
+    <string name="register">Registered</string>
+    <string name="input_repassword">Pleas Repeat Password</string>
+    <string name="valid_repassword">Dosen\'t Same</string>
+    <string name="register_success">Success Registered  </string>
+    <string name="input_todo_name">Enter Titile </string>
+    <string name="input_todo_des">输入待办详情，非必填，如：\n1、制作演示PPT\n2、预定会议室\n3、通知参加会议人员\n4、提前10分钟准备会议环境</string>
+    <string name="add_todo">添加待办清单</string>
+    <string name="update_todo">清单详细</string>
+    <string name="input_todo_name_toast">请输入待办名称</string>
+    <string name="add_todo_success">添加成功</string>
+    <string name="update_todo_success">更新成功</string>
+    <string name="delete_todo_success">删除成功</string>
+    <string name="done_todo_success">标记完成</string>
+    <string name="notdo_todo_success">撤销完成</string>
+    <string name="done_todo_date">完成时间：%s</string>
+    <string name="account_name">账号信息</string>
+    <string name="modify_password">修改密码</string>
+    <string name="my_github_url">https://github.com/wjwang0914</string>
+    <string name="my_github_name">github</string>
+    <string name="api_support_name">API</string>
+    <string name="api_support_url">http://www.wanandroid.com/</string>
+    <string name="no_text">本宝宝暂时还没有想到详细信息</string>
+    <string name="todo_name">待办名称</string>
+    <string name="todo_des">待办详细</string>
+    <string name="delete_todo">删除待办清单</string>
+    <string name="sure_delete_todo">请确认是否删除？</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="todo_title">Title：</string>
+    <string name="des">Detail：</string>
+
+    <string name="open_source_lis">Open source library used:</string>
+    <string name="open_source_libraries_list">com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30 \ncom.trello.rxlifecycle2:rxlifecycle:2.2.1 \nio.reactivex.rxjava2:rxjava:2.1.11 \ncom.alibaba:arouter-api:1.3.1\ncom.squareup.retrofit2:retrofit:2.3.0\ncom.google.dagger:dagger:2.11 \ncom.orhanobut:logger:2.2.0 \ncom.yanzhikai:TextPathView:0.1.3\n...</string>
+
+    <string name="share">分享给朋友</string>
+    <string name="menu_save">Save</string>
+    <string name="action_settings">Setting</string>
+    <string name="hello_blank_fragment">Hello fragment </string>
 </resources>
