@@ -57,7 +57,7 @@ public class AddMemo extends AppCompatActivity {
 
     private TextView tvDate;
 
-    public static final int PHOTO_REQUEST_CAREMA = 1;// 拍照
+    public static final int PHOTO_REQUEST_CAREMA=1,TAKE_PHOTO= 1;// 拍照
     public static final int CROP_PHOTO = 2;
     private Button takePhoto;
     private ImageView picture;
@@ -144,11 +144,10 @@ public class AddMemo extends AppCompatActivity {
                     return;
                 }
 
-                Bitmap bitmap;
-                bitmap = Bitmap.createBitmap();
+
                 imageUri = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                picture.setImageBitmap(bitmap);
+
 
             }
         }
@@ -189,7 +188,38 @@ public class AddMemo extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+//                    Intent intent = new Intent("com.android.camera.action.CROP");
+//                    intent.setDataAndType(imageUri, "image/*");
+//                    intent.putExtra("scale", true);
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                    startActivityForResult(intent, CROP_PHOTO); // 启动裁剪程序
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case CROP_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+        }
+    }
 }
 
 
