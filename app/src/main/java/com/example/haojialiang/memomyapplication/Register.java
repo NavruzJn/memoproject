@@ -74,4 +74,10 @@ public class Register extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
     }
+
+    @OnClick(R.id.loginButton)
+    public void setLoginButton(View view) {
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
+    }
 }
