@@ -29,9 +29,13 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -176,12 +180,10 @@ public class AddMemo extends AppCompatActivity {
 
 
     public void addpicture(View view) {
-
-
         openCamera(this);
 
 
-        }
+    }
 
     public void addmemo(View view) {
 
@@ -207,33 +209,10 @@ public class AddMemo extends AppCompatActivity {
             }
         }
 
-}
-}
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case TAKE_PHOTO:
-                if (resultCode == RESULT_OK) {
-                    Intent intent = new Intent("com.android.camera.action.CROP");
-                    intent.setDataAndType(imageUri, "image/*");
-                    intent.putExtra("scale", true);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                    startActivityForResult(intent, CROP_PHOTO); // 启动裁剪程序
-                }
-                break;
-            case CROP_PHOTO:
-                if (resultCode == RESULT_OK) {
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
-                                .openInputStream(imageUri));
-                        picture.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
-        }
     }
+
+
 }
+
+
+

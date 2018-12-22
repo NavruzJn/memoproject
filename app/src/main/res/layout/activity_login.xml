@@ -47,11 +47,11 @@
                 android:layout_marginTop="5dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/tv_al_account"
+                    android:id="@+id/loginEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_account"
-                    android:inputType="text|textAutoComplete"
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress|textAutoComplete"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColorHint="#767676" />
@@ -64,7 +64,7 @@
                 android:layout_marginTop="5dp">
 
                 <EditText
-                    android:id="@+id/tv_al_password"
+                    android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -76,7 +76,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/login"
+                android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -86,7 +86,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/regitster"
+                android:id="@+id/register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
