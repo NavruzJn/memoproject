@@ -1,45 +1,49 @@
 package com.example.haojialiang.memomyapplication;
 
 import android.net.Uri;
-import android.net.UrlQuerySanitizer;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-public class MemoObject implements Parcelable {
+public class MemoObject  {
     private String title;
     private String detail;
     private String data;
     private String uri;
 
-    protected MemoObject(Parcel in) {
-        title = in.readString();
-        detail = in.readString();
-        data = in.readString();
-        uri = in.readString();
+    public MemoObject(String title, String detail, String data, String uri) {
+        this.title = title;
+        this.detail = detail;
+        this.data = data;
+        this.uri = uri;
     }
 
-    public static final Creator<MemoObject> CREATOR = new Creator<MemoObject>() {
-        @Override
-        public MemoObject createFromParcel(Parcel in) {
-            return new MemoObject(in);
-        }
-
-        @Override
-        public MemoObject[] newArray(int size) {
-            return new MemoObject[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getTitle() {
+        return title;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(detail);
-        dest.writeString(data);
-        dest.writeString(uri);
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 }

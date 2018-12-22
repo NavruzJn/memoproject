@@ -10,13 +10,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,14 +43,17 @@ public class AddMemo extends AppCompatActivity {
     EditText etAdtContent;
     @BindView(R.id.btn_adt_save)
     Button btnAdtSave;
+    @BindView(R.id.tv_adt_date)
+    TextView tvDate;
     @BindView(R.id.iv_add_photo_from_local)
     ImageView AddPhoto;
-
+    @BindView(R.id.iv_show)
+    ImageView showpickture;
     int mYear = 2018;
     int mMonth = 12;
     int mDay = 1;
-    private TextView tvDate;
 
+    private String path;
     public static final int PHOTO_REQUEST_CAREMA = 1, TAKE_PHOTO = 1;// 拍照
     public static final int CROP_PHOTO = 2;
     private Button takePhoto;
@@ -59,7 +61,9 @@ public class AddMemo extends AppCompatActivity {
     private Uri imageUri;
 
     private String mPhotoPath;
-  
+
+    private Uri uri;
+
     private static int REQUEST_PERMISSION_CODE = 1;
 
     private static String[] PERMISSIONS_STORAGE = {
@@ -79,6 +83,15 @@ public class AddMemo extends AppCompatActivity {
         setContentView(R.layout.activity_add_memo);
         ButterKnife.bind(this);
         init();
+        Intent intent = getIntent();
+        Memo memo = intent.getParcelableExtra("memo");
+        if (memo != null) {
+            showpickture.setImageURI(memo.getUri());
+            etAdtTitle.setText(memo.getTitle());
+            etAdtContent.setText(memo.getDescription());
+            tvDate.setText(memo.getCreatedAt());
+
+        }
     }
 
     @OnClick(R.id.iv_teke_picture)
@@ -103,13 +116,22 @@ public class AddMemo extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, null);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*");
+        path = String.valueOf(MediaStore.Images.Media.EXTERNAL_CONTENT_URI.getPath());
         startActivityForResult(intent, 0x3);
     }
 
     @OnClick(R.id.btn_adt_save)
     public void save(View view) {
+        int data1 = new Date().getDate();
         Intent intent = new Intent();
+        String title = String.valueOf(etAdtTitle.getText());
+        String detail = String.valueOf(etAdtContent.getText());
+        String data = (String) tvDate.getText();
+        Memo memoObject = new Memo(title, detail, path, data, uri);
+        //intent.putExtra("AddMemoData", (Parcelable) memoObject);
+
     }
+
 
 
     private void init() {
@@ -119,8 +141,7 @@ public class AddMemo extends AppCompatActivity {
 
             }
         }
-        tvDate = findViewById(R.id.tv_adt_date);
-        picture = findViewById(R.id.iv_show);
+
 
 
     }
@@ -149,6 +170,7 @@ public class AddMemo extends AppCompatActivity {
                 // 从文件中创建uri
                 imageUri = Uri.fromFile(tempFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                path = String.valueOf(imageUri);
             } else {
                 //兼容android7.0 使用共享文件的形式
                 ContentValues contentValues = new ContentValues(1);
@@ -161,22 +183,14 @@ public class AddMemo extends AppCompatActivity {
                     Toast.makeText(this, "请开启存储权限", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
                 imageUri = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-
+                path = tempFile.getAbsolutePath();
 
             }
         }
         // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
         activity.startActivityForResult(intent, PHOTO_REQUEST_CAREMA);
-    }
-
-
-    public void addpicture(View view) {
-        openCamera(this);
-
     }
 
 
@@ -225,7 +239,9 @@ public class AddMemo extends AppCompatActivity {
             case 0x3:
                 if (requestCode == 0x3 && resultCode == RESULT_OK) {
                     if (data != null) {
+                        uri = data.getData();
                         picture.setImageURI(data.getData());
+                        path = data.getData().getPath();
                     }
                 }
                 super.onActivityResult(requestCode, resultCode, data);
