@@ -29,13 +29,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,22 +42,24 @@ public class AddMemo extends AppCompatActivity {
     EditText etAdtTitle;
     @BindView(R.id.et_adt_content)
     EditText etAdtContent;
-//    @BindView(R.id.tv_adt_date)
-//    TextView tvAdtDate;
     @BindView(R.id.btn_adt_save)
     Button btnAdtSave;
+    @BindView(R.id.iv_add_photo_from_local)
+    ImageView AddPhoto;
+
     int mYear = 2018;
     int mMonth = 12;
     int mDay = 1;
+    private TextView tvDate;
 
-    private TextView tvDate ;
-
-    public static final int PHOTO_REQUEST_CAREMA = 1;// 拍照
+    public static final int PHOTO_REQUEST_CAREMA = 1, TAKE_PHOTO = 1;// 拍照
     public static final int CROP_PHOTO = 2;
     private Button takePhoto;
     private ImageView picture;
     private Uri imageUri;
 
+    private String mPhotoPath;
+  
     private static int REQUEST_PERMISSION_CODE = 1;
 
     private static String[] PERMISSIONS_STORAGE = {
@@ -76,34 +73,55 @@ public class AddMemo extends AppCompatActivity {
     public static File tempFile;
 
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_show:
-                openCamera(this);
-                break;
-        }
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_add_memo);
+        ButterKnife.bind(this);
         init();
+    }
+
+    @OnClick(R.id.iv_teke_picture)
+    public void takePhoto(View view) {
+        openCamera(this);
 
     }
+
+    @OnClick(R.id.tv_adt_date)
+    public void pickdate(View view) {
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                tvDate.setText(year + "-" + month + "-" + dayOfMonth);
+            }
+        }, mYear, mMonth - 1, mDay).show();
+
+    }
+
+    @OnClick(R.id.iv_add_photo_from_local)
+    public void loadPhoto(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, null);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "image/*");
+        startActivityForResult(intent, 0x3);
+    }
+
+    @OnClick(R.id.btn_adt_save)
+    public void save(View view) {
+        Intent intent = new Intent();
+    }
+
 
     private void init() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
+
             }
         }
-
-
         tvDate = findViewById(R.id.tv_adt_date);
-        picture=findViewById(R.id.iv_show);
+        picture = findViewById(R.id.iv_show);
+
 
     }
 
@@ -112,7 +130,6 @@ public class AddMemo extends AppCompatActivity {
         return Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED);
     }
-
 
 
     public void openCamera(Activity activity) {
@@ -127,6 +144,7 @@ public class AddMemo extends AppCompatActivity {
             String filename = timeStampFormat.format(new Date());
             tempFile = new File(Environment.getExternalStorageDirectory(),
                     filename + ".jpg");
+
             if (currentapiVersion < 24) {
                 // 从文件中创建uri
                 imageUri = Uri.fromFile(tempFile);
@@ -139,12 +157,16 @@ public class AddMemo extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     //申请WRITE_EXTERNAL_STORAGE权限
-                    Toast.makeText(this,"请开启存储权限",Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_PERMISSION_CODE);
+                    Toast.makeText(this, "请开启存储权限", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
                 imageUri = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                picture.setImageBitmap(bitmap);
+
+
             }
         }
         // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_CAREMA
@@ -152,53 +174,11 @@ public class AddMemo extends AppCompatActivity {
     }
 
 
-//    @OnClick({R.id.tv_adt_date, R.id.btn_adt_save})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.tv_adt_date:
-//                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                        tvAdtDate.setText(year + "-" + month + "-" + dayOfMonth);
-//
-//                    }
-//                }, mYear, mMonth - 1, mDay).show();
-//                break;
-//            case R.id.btn_adt_save:
-////                showLoading();
-//                switch (btnAdtSave.getText().toString()) {
-////                    case "Add":
-////                        mPresenter.addTask(etAdtTitle.getText().toString(), etAdtContent.getText().toString(), tvAdtDate.getText().toString(), mCustomType);
-////                        break;
-////                    case "Update":
-////                        mPresenter.updateTask(todoSection.t.getId(), etAdtTitle.getText().toString(), etAdtContent.getText().toString(), tvAdtDate.getText().toString(), todoSection.t.getStatus(), mEditType);
-////                        break;
-//                }
-//                break;
-//        }
-
-
-
     public void addpicture(View view) {
         openCamera(this);
 
-
     }
 
-    public void addmemo(View view) {
-
-
-    }
-
-    public void pickdate(View view) {
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                tvDate.setText(year + "-" + month + "-" + dayOfMonth);
-
-            }
-        }, mYear, mMonth - 1, mDay).show();
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -211,7 +191,47 @@ public class AddMemo extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
 
+//                    Intent intent = new Intent("com.android.camera.action.CROP");
+//                    intent.setDataAndType(imageUri, "image/*");
+//                    intent.putExtra("scale", true);
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                    startActivityForResult(intent, CROP_PHOTO); // 启动裁剪程序
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case CROP_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            case 0x3:
+                if (requestCode == 0x3 && resultCode == RESULT_OK) {
+                    if (data != null) {
+                        picture.setImageURI(data.getData());
+                    }
+                }
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
 }
 
 
