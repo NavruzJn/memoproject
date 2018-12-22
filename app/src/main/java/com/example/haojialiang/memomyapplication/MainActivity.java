@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -83,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user == null) {
-//            startActivity(new Intent(getApplicationContext(), Login.class));
-//            finish();
+        if(user == null){
+            startActivity(new Intent(getApplicationContext(), Login.class));
+            finish();
         }
     }
 
