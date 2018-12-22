@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class Register extends AppCompatActivity {
 
@@ -25,10 +29,11 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
 
-        userEmail = (EditText) findViewById(R.id.email);
-        userPassword = (EditText) findViewById(R.id.password);
-        registerButton = (Button) findViewById(R.id.register);
+        userEmail = findViewById(R.id.email);
+        userPassword = findViewById(R.id.password);
+        registerButton = findViewById(R.id.register);
         firebaseAuth = FirebaseAuth.getInstance();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,7 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    Log.d("Register", "Success");
                                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                     finish();
                                 }
@@ -64,18 +70,8 @@ public class Register extends AppCompatActivity {
                         });
             }
         });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Login.class));
-            }
-        });
-
         if(firebaseAuth.getCurrentUser()!=null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
     }
-
-
 }

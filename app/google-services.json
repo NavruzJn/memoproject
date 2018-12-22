@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "569838865394-feb65nq15br74cnk5k71mhdvvueitkei.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.haojialiang.memomyapplication",
+            "certificate_hash": "b6309e632914758d380a59c8daa623a1bae38c58"
+          }
+        },
+        {
           "client_id": "569838865394-qqitlo4g8dd2o9uk1i7l59bb1jeijonv.apps.googleusercontent.com",
           "client_type": 3
         }

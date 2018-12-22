@@ -91,16 +91,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:onClick="setRegister"
                 android:text="@string/register_message"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp" />
-
-            <com.example.haojialiang.Final_project_memo.widget.LoadingView
-                android:id="@+id/lv_loading_view"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
