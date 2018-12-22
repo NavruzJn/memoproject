@@ -92,9 +92,11 @@
             android:textColorHint="#19443D"
             android:textSize="@dimen/sp_14" />
 
+
         <android.support.v7.widget.AppCompatTextView
 
             android:id="@+id/tv_adt_date"
+
             android:layout_width="match_parent"
             android:layout_height="40sp"
             android:layout_marginLeft="@dimen/dp_10"

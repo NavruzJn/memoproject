@@ -59,7 +59,7 @@ public class AddMemo extends AppCompatActivity {
     private Uri imageUri;
 
     private String mPhotoPath;
-
+  
     private static int REQUEST_PERMISSION_CODE = 1;
 
     private static String[] PERMISSIONS_STORAGE = {
@@ -191,12 +191,12 @@ public class AddMemo extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
+
 //                    Intent intent = new Intent("com.android.camera.action.CROP");
 //                    intent.setDataAndType(imageUri, "image/*");
 //                    intent.putExtra("scale", true);
@@ -221,6 +221,7 @@ public class AddMemo extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
             case 0x3:
                 if (requestCode == 0x3 && resultCode == RESULT_OK) {
                     if (data != null) {
@@ -228,7 +229,6 @@ public class AddMemo extends AppCompatActivity {
                     }
                 }
                 super.onActivityResult(requestCode, resultCode, data);
-
                 break;
         }
     }
